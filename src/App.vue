@@ -2,8 +2,6 @@
 import { ref } from 'vue';
 import HelloWorld from './components/HelloWorld.vue'
 
-const isVisable = ref(false);
-
 const showApiKey = () => {
   isVisable.value = !isVisable.value;
 }
@@ -12,6 +10,7 @@ const getApiKey = () => {
   return localStorage.getItem('apiKey')?? '';
 }
 const apiKey = ref(getApiKey());
+const isVisable = ref(getApiKey() === '');
 
 const saveApiKey = () => {
   isVisable.value = false;
@@ -23,7 +22,7 @@ const saveApiKey = () => {
 <template>
   <div>
     <div class="container mx-auto">
-      <input v-show="isVisable || getApiKey() === ''" v-model="apiKey" type="text" class="w-[480px] p-2 border-2 border-gray-300 rounded-lg"
+      <input v-show="isVisable" v-model="apiKey" type="text" class="w-[480px] p-2 border-2 border-gray-300 rounded-lg"
         placeholder="API KEY" />
       <div class="flex space-x-2">
         <a class="text-blue-500 cursor-pointer underline" @click="showApiKey">{{ isVisable ? 'Hide' : 'Show API' }}</a>
