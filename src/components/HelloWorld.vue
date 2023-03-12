@@ -29,7 +29,7 @@ return a valid json with the keys:
 "explanations": Array of explanations for each correction
 `,
     temperature: 0,
-    max_tokens: 4000,
+    max_tokens: 1000,
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
@@ -86,7 +86,7 @@ loadfromStorage();
       <a class="text-blue-500 cursor-pointer" @click="reset">Clear</a>
       <div class="flex flex-row space-x-2">
         <textarea class="border rounded w-full min-h-[160px] p-2" v-model="text" />
-        <div class="border rounded w-full bg-gray-300 p-2 overflow-y-scroll min-h-full">
+        <div class="border rounded w-full bg-gray-100 p-2 overflow-y-scroll min-h-full">
           <span v-text="responseJson['corrected']" />
           <ul class="list-disc list-inside">
             <li v-for="explanation in responseJson['explanations']" v-text="explanation" />
@@ -99,15 +99,15 @@ loadfromStorage();
       <br>
       <span class="text-2xl font-extrabold">History</span>
       <div class="flex flex-col space-y-2">
-        <div v-for="item in history" class="flex items-center space-x-2" >
+        <div v-for="item in history" class="flex items-center space-x-2">
           <div class="bg-gray-100 p-2 rounded cursor-pointer w-full" @click="copy(item['corrected'])">
             <span v-text="item['corrected']" />
-            <ul class="list-disc list-inside">
+            <ul class="list-disc list-inside p-2">
               <li v-for="explanation in item['explanations']" v-text="explanation" />
             </ul>
           </div>
-          <a class="text-red-500 cursor-pointer" @click="deleteItem(history.indexOf(item))">Delete</a>
           <a class="text-blue-500 cursor-pointer" @click="editItem(history.indexOf(item))">Edit</a>
+          <a class="text-red-500 cursor-pointer" @click="deleteItem(history.indexOf(item))">Delete</a>
         </div>
       </div>
     </div>
