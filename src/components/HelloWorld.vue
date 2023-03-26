@@ -64,7 +64,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const text: Ref<string> = ref('');
-const temperature: Ref<number>  = ref(1);
+const temperature: Ref<number>  = ref(0.85);
 const top_p: Ref<number> = ref(1);
 const responseJson: Ref<any> = ref({});
 const history: Ref<any> = ref([]);
@@ -83,6 +83,7 @@ const send = async () => {
     frequency_penalty: 0,
     presence_penalty: 0,
   });
+  console.log(response.data.choices[0].text);
   responseJson.value = JSON.parse(response.data.choices[0].text?.trimStart() ?? '');
   history.value.unshift(responseJson.value);
   savetoStorage();
